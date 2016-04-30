@@ -9,6 +9,19 @@ server.listen(port, function () {
   console.log('Server listening at port %d', port);
 });
 
+var pkg = require('./package.json');
+//Version/Monitoring
+app.get('/version', function(req, res) {
+  try {
+    res.json(pkg);
+    return;
+
+  } catch(e) {
+    res.json({error: e});
+    return;
+  }
+})
+
 // Routing
 app.use(express.static(__dirname + '/public'));
 
@@ -73,3 +86,5 @@ io.on('connection', function (socket) {
     }
   });
 });
+
+
